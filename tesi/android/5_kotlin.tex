@@ -1,0 +1,65 @@
+\subsection{Android e Kotlin}   %% BAIOLETTI APPROVED
+\textit{Kotlin} è un linguaggio di programmazione \textit{cross-platform}, \textit{statically typed}, \textit{general-purpose}, creato da \textit{JetBrains} nel 2011. La sua caratteristica principale è l'interoperabilità con Java e l'abilità di generare \textit{bytecode} per le JVM. Ha una sintassi molto concisa e più snella rispetto a Java.
+
+Queste proprietà lo hanno portato, nel 2019 \cite{kotlin}, ad essere etichettato da Google come il suo linguaggio di sviluppo preferito per Android.\\
+Ovviamente, tutte le informazioni scritte nelle sezioni precedenti valgono anche per Kotlin.\\
+\\
+Di seguito un confronto tra \textit{Java} e \textit{Kotlin}. I due codici hanno come obiettivo quello di definire una classe per rappresentare alcuni dati di una persona:\\
+
+\begin{lstlisting}[language=Java, caption=Esempio di codice Java]
+public final class Person {
+    private String name;
+    private int age;
+    private float height;
+    
+    public Person(String name, int age, float height) {
+        this.name = name;
+        this.age = age;
+        this.height = height;
+    }
+    
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+        this.height = 1.8f;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public int getAge() {
+        return age;
+    }
+    
+    public void setAge(int age) {
+        this.age = age;
+    }
+    
+    ...
+    
+    @Override
+    public String toString() {
+        return "Persona{" +
+                "name='" + name + '\'' +
+                ", age=" + age  +
+                ", height=" + height +
+                "}";
+    }
+    
+    ...
+}
+\end{lstlisting} 
+
+\begin{lstlisting}[language=Java, caption=Esempio di codice Kotlin]
+data class Person(
+    var name: String, 
+    var age: Int, 
+    var height: Float = 1.8f
+)
+\end{lstlisting}
+

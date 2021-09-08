@@ -1,0 +1,30 @@
+\subsection{Metodologie di Attacco}
+%% questa parte viene da https://it.wikipedia.org/wiki/Adversarial_machine_learning#Modalit%C3%A0_di_attacco
+Generalmente l'Adversarial Machine Learning si concentra sulla modifica e alterazione di immagini. Ci sono 3 principali metodologie di attacco \cite{adversarial}:
+
+\begin{enumerate}
+    \item \textbf{Poisoning}
+    \item \textbf{Evasion}
+    \item \textbf{Model Extraction}
+\end{enumerate}
+Ognuna di queste va ad agire sulle varie debolezze del modello. Di seguito una breve descrizione di queste.
+
+\subsubsection{Poisoning}
+
+Questo tipo di attacco mira a violare la fase di \textit{training} (addestramento) del modello introducendo un \say{adversarial input} nel dataset in modo tale da ridurre il più possibile l'\textit{accuracy} per tutti i possibili input.
+
+\subsubsection{Evasion} 
+
+% \textbf{Note by Alina: reference da dove ai preso questa cosa? in my humble opinion questo e' Evasion attack; il termine obfuscation di solito viene usato per parlare di techniche di difesa come per esempio gradient obfuscation; da controllare}
+
+L'obiettivo di questo attacco è quello di violare l'integrità di un modello: l'attaccante va a modificare un input cercando di ottenere come output una classe diversa dalla classe di appartenenza. In alternativa, si può anche tentare di ridurre la confidenza del modello per quell'input.\\
+\\
+In modo più formale, possiamo descrivere questo attacco con il seguente problema di ottimizzazione:
+\[ arg min ||\delta_X|| s.t F(X + \delta_X) = Y^*\]
+
+dove \(\delta_X\) è un vettore che contiene la perturbazione da aggiungere all'input \(X\), \(F\) è la funzione approssimata dall'algoritmo e \(Y^*\) è la classe obiettivo che l'attaccante vuole ottenere per \(X\). 
+%%potrei anche dire che F è il modello ??
+%% potrei anche dire che Y* è una classe di appartenenza diversa da quella di X
+
+\subsubsection{Model Extraction}
+A differenza dei precedenti attacchi, il \textit{Model Extraction} (o anche \textit{Model Stealing}) viene utilizzato per violare la \say{\textit{confidentiality}} del modello: è possibile clonare un determinato modello, tramite un numero finito di interrogazioni e utilizzando gli output per addestrare un nuovo modello clone, o recuperare informazioni private e sensibili riguardanti il  dataset utilizzato durante la fase di training.

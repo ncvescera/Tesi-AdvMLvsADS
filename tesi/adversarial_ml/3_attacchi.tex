@@ -1,0 +1,35 @@
+%% viene da https://arxiv.org/pdf/1611.01236.pdf pgina 3
+\subsection{Attacchi}
+La maggior parte degli attacchi di Adversarial Machine Learning appartengono alla tipologia numero 2 \cite{adversarial} vista in precedenza, \textit{Evasion}, e vengono effettuate su immagini per cercare di violare sistemi di Image Classification e Object Detection. 
+Di seguito andremo ad analizzare i principali tipi di attacchi appartenenti a questa categoria:
+
+\subsubsection{Fast Gradient Sign Method}
+Il \textit{Fast Gradient Sign Method} (FGSM) è stato proposto da Goodfellow et al. (2014) come un modo semplice per generare \say{adversarial examples}:
+\[X^{adv} = X + \epsilon sign(\nabla_XJ(X, y_{true}))\]
+\\
+Il suo obbiettivo è quello di trovare una perturbazione/rumore che, aggiunto all'immagine, aumenti il valore della \textit{loss function}.
+Questo metodo è più efficiente rispetto alla complessità computazionale se confrontato con metodi più complessi come il L-BFGS, ma generalmente ha una percentuale di successo inferiore.
+
+%% ho qualche dubbio su questo, potrebbe non essere espresso bene
+\subsubsection{One-step target class methods}
+Questo attacco si basa sul massimizzare la probabilità \(p(y_{target} | X)\) di una specifica classe \(y_{target}\), che risulterà improbabile essere la classe corretta per una data immagine.\\
+Per una rete neurale che ha come \textit{loss function} la \textit{cross-entropy} questo porterà ad avere la seguente formula:
+\[X^{adv} = X - \epsilon sign(\nabla_XJ(X, y_{target}))\]
+\\
+Come classe target possiamo usare la classe che ha minor probabilità di essere predetta dalla rete: \(y_{LL} = arg min_y\{p(y | X)\}\). In questo caso l'attacco avrà il nome di \textit{One-step Least Likely Class} (\say{step l.l.}). In alternativa possiamo utilizzare anche una classe scelta in maniera casuale. Questo prenderà l nome di \say{step rnd.}
+
+\subsubsection{Basic Iterative Method}
+Questa è una derivazione del metodo FGSM che consiste nell'applicarlo più volte con step di dimensioni inferiori:
+
+\[
+X_0^{adv} = X,  \;\;\; X_{N+1}^{adv} = Clip_{X, \epsilon}\{X_N^{adv} + \alpha sign(\nabla_XJ(X_{N}^{adv}, y_{true}))\}
+\]
+
+\subsubsection{Iterative least-likley class Method}
+Applicando più volte il metodo \say{step l.l} possiamo ottenere \say{adversarial examples} che vengono classificati in modo errato più del \(99\%\) delle volte:
+
+\[
+X_0^{adv} = X, \;\;\; X_{N+1}^{adv} = Clip_{X, \epsilon}\{X_N^{adv} - \alpha sign(\nabla_XJ(X_N^{adv}, y_{LL}))\}
+\]
+
+%% anche questo potrebbe essere utile per aggiungere roba a questa sezione https://arxiv.org/pdf/2009.03728.pdf

@@ -1,0 +1,15 @@
+\subsection{Introduzione}   %% titolo provvisorio
+
+Android è il sistema operativo più utilizzato negli smartphone, nel 2018 ha raggiunto una quota di mercato del \(84.8\%\) \cite{8672711}, rendendolo così un bersaglio molto interessante per i malware.\\
+\\
+Come visto nelle sezioni precedenti, sistemi di \textit{Machine Learning} sono stati utilizzati per migliorare le prestazioni di software per la Malware Detection. Il loro principale svantaggio è l'inaffidabilità nella catalogazioni \cite{8672711} di nuovi campioni mai visti prima. Questo li espone ad una grande vulnerabilità: gli \textit{Adversarial Samples}, modifiche appositamente studiate ed applicate al codice di un malware per renderlo \say{invisibile} ai controlli.
+
+La creazione di questi Adversarial Samples è stata ampiamente studiata e, di solito, viene applicata alle immagini: i pixel di una foto vengono distorti in modo tale da non permettere ad un occhio umano di percepire la modifica e riuscendo allo stesso tempo ad ingannare il classificatore. Analogamente, nell'ambito della malware detection, si punta ad inserire una perturbazione nel file malevolo in modo da farlo apparire come un file benigno. Questa modifica deve avere le seguenti tre caratteristiche \cite{8672711}:
+
+\begin{itemize}
+    \item Deve essere applicabile in modo veloce ed a basso costo (\textit{low cost} e \textit{low effort})
+    \item Non deve eliminare o modificare il comportamento originale del malware
+    \item Si possono solo aggiungere o togliere elementi (\textit{features}) al codice 
+\end{itemize}
+
+

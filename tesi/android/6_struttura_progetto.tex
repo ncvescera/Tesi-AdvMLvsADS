@@ -1,0 +1,74 @@
+\subsection{Struttura di un Progetto Android}
+\textit{Android Studio} è l'IDE che Google fornisce per la creazione di app per Android. Ogni progetto ha una struttura di cartelle e file ben precisa e complessa che, tramite Android Studio, viene semplificata e mostrata all'utente raggruppando i vari elementi in \textit{moduli} \cite{androidstudio}. I principali moduli sono:
+
+\begin{itemize}
+    \item \textbf{manifest}: qui è presente il file \textit{AndroidManifest.xml} al cui interno sono presenti dati importanti come il nome di ogni Activity, il nome del progetto, la dichiarazione di vari Intent, gli elementi hardware necessari al funzionamento, i vari permessi a cui l'app deve avere accesso, ecc.
+    \item \textbf{java}: questo modulo contiene tutti i file Java raggruppati nei vari \textit{package} (se presenti).
+    \item \textbf{res}: in questa parte sono contenuti tutti i file che non presentano codice al proprio interno: layout XML, immagini, set di colori, icone e altri elementi simili.
+\end{itemize}
+
+\begin{lstlisting}[language=XML, caption=Esempio di AndroidManifest.xml]
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.toggletest"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.example.toggletest.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+    
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+</manifest>
+\end{lstlisting}
+
+\begin{lstlisting}[language=XML, caption=Esempio di Layout XML]
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical" >
+    <TextView android:id="@+id/text"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Hello, I am a TextView" />
+    <Button android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello, I am a Button" />
+</LinearLayout>
+\end{lstlisting}
+
+\begin{lstlisting}[language=Java, caption=Esempio di codice di un'Activity scritto in Java]
+package com.example.myproject
+
+import android.widget.TextView
+
+public class MainActivity extends Activity {
+    private TextView myTextView;
+    
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        
+        myTextView = findViewById(R.id.mytexview);
+        
+        myTextView.setText("Hello World !");
+    }
+}
+\end{lstlisting}

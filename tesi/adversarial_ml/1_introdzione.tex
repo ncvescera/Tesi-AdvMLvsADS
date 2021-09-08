@@ -1,0 +1,9 @@
+\subsection{Introduzione}
+
+Negli ultimi anni l'uso del \textit{Machine Learning} si sta diffondendo sempre di più: dai classificatori che riescono a distinguere un cane da un gatto (\textit{Image Classification}), fino ad importanti sistemi di sicurezza come identificazione facciale (\textit{Face Detection/Recognition}) e individuazione di minacce (\textit{Malware Detection}).\par
+
+La sicurezza e la robustezza di questi algoritmi viene messa a rischio da attacchi effettuati tramite l'\textit{Adversarial Machine Learning} \cite{adversarial}: una particolare tipologia di Machine Learning che mira a violare il corretto funzionamento di uno (o più) di questi meccanismi.
+
+%% questa parte viene da https://arxiv.org/pdf/1611.01236.pdf pagina 2-3
+Il funzionamento può essere descritto come segue: sia \textit{M} un sistema di Machine Learning e sia \textit{C} un input, che chiameremo \say{clean example}, assumiamo che \textit{C} sia classificato correttamente dal sistema: \(M(C) = y_{true}\). È possibile costruire un input \textit{A}, che chiameremo \say{adversarial example}, praticamente identico a \textit{C} ma che viene classificato in modo errato: \(M(A) \neq y_{true}\).\\
+L'obbiettivo dell'Adversarial Machine Learning è quindi quello di riuscire a creare l'input \textit{A} per portare ad una classificazione errata il modello \textit{M}.

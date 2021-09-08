@@ -1,0 +1,100 @@
+\documentclass[a4paper,12pt]{article}
+% \documentclass{article} % vecchie impostazioni di default
+\usepackage[utf8]{inputenc}
+\usepackage{dirtytalk}
+\usepackage{epigraph}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{graphbox}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{biblatex} %Imports biblatex package
+\usepackage{float}
+
+\addbibresource{biblio.bib} %Import the bibliography file
+
+% code style
+\lstdefinestyle{mystyle}{
+    %backgroundcolor=\color{backcolour},   
+    %commentstyle=\color{codegreen},
+    %keywordstyle=\color{magenta},
+    %numberstyle=\tiny\color{codegray},
+    %stringstyle=\color{codepurple},
+    %basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\renewcommand*\contentsname{Indice} %% modifica il nome di \tableofcontents
+\renewcommand{\listfigurename}{Immagini}
+\renewcommand{\listtablename}{Tabelle}
+
+
+% \linespread{1.6}  % interlinea preso da `Tesi Cipriani`, non mi convince :/
+                    % preferisco l'interlinea di default
+                
+
+\begin{document}
+    
+    %% FRONTESPIZIO
+    \include{frontespizio}
+    
+    %% ---------------
+    
+    %% INDICE, TABELLE, IMMAGINI, CODICI
+    \tableofcontents
+    
+    \ \\
+    
+    \listoffigures
+    \listoftables
+    \lstlistoflistings
+    
+    %% ---------------
+    
+    %% ABSTRACT
+    \include{abstract}
+    
+    %% ---------------
+    
+    %% PAGINA VUOTA
+    \pagebreak
+    \ \\
+    \pagebreak
+    
+    %% ---------------
+    
+    %% CAPITOLI
+    \include{android/main}
+    \include{malware_detection/main}
+    \include{adversarial_ml/main}
+    \include{aml_vs_md/main}
+    \include{conclusioni}
+    
+    %% ---------------
+    
+    %% BIBLIOGRAFIA
+    \printbibliography %Prints bibliography
+    
+    %% ---------------
+\end{document}
+
+%% TODO:
+%% [x] frontespizio Santini 
+%% [x] Obfuscation diventa Evasion (dove parlo dei 3 attacchi)
+%% [x] Corretti i vari 'Note by Alina'
+%% [x] L' ultima riga delle conclusioni è ambigua
+%% [x] L' abstract va invertito, prima il basso poi l'alto
+%% [x] Controllare lettere perse e parole scritte male
+
+%% presentazione -> qualunque tema !

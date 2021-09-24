@@ -5,22 +5,22 @@ Il metodo proposto da Papernot et al., \textit{Jacobian-based Saliency Map Attac
 
 Carlini \& Wanger hanno creato un modello di attacco \textit{optimization-based}, conosciuto anche come \textit{CW Attack}\cite{8672711}, che riesce a degradare le performance di classificazione di un modello raggiungendo un \textit{success rate} anche del \textit{100\%}. Chen et al. hanno ideato un attacco contro \textit{MaMadroid} e \textit{Drebin} basato su \textit{CW} e \textit{JSMA}. Il loro attacco genera \textit{adversarial sample} aggiungendo \textit{feature} binarie al codice del malware, raggiungendo un \textit{success rate} del \(100\%\) quando si ha a disposizione il modello ed i suoi parametri (\textit{withe box attack}).
 
-Goodfellow et al. introdussero \cite{8672711} l'utilizzo delle \textit{Generative Adversarial Networks} (GANs) per generare \textit{adversarial sample} partendo da \textit{noise vector}. La loro idea fu estesa da Hu et al. per generare \textit{adversarial sample} contro malware detector di Android (\textit{black box attack}). Questa metodologia raggiunge il \(100\%\) di \textit{success rate}, senza però considerare una soglia massima di modifiche applicabili al codice del malware.
+Goodfellow et al. hanno introdotto \cite{8672711} l'utilizzo delle \textit{Generative Adversarial Networks} (GANs) per generare \textit{adversarial sample} partendo da \textit{noise vector}. La loro idea è stata estesa da Hu et al. per generare \textit{adversarial sample} contro malware detector di Android (\textit{black box attack}). Questa metodologia raggiunge il \(100\%\) di \textit{success rate}, senza però considerare una soglia massima di modifiche applicabili al codice del malware.
 
 Shahpasand et al.\cite{8672711} migliorano l'idea di Goodfellow et al., introducendo una soglia (\textit{threshold}) per il livello massimo di distorsione applicabile al codice del malware originale. 
 
 \subsubsection{Metodo di Shahpasand et al.}
-Il metodo proposto da Shahpasand et al.\cite{8672711} si basa sulla tecnica dell'\textit{evasion} per cercare di eludere il Classificatore e indurlo a catalogare Malware come file benigni. Il loro obbiettivo è quindi quello di generare \textit{adversarial sample}, partendo dal codice originale di un malware, per ingannare il Malware Detector. In modo più formale:
+Il metodo proposto da Shahpasand et al.\cite{8672711} si basa sulla tecnica dell'\textit{evasion} per cercare di eludere il classificatore e indurlo a catalogare Malware come file benigni. Il loro obbiettivo è quindi quello di generare \textit{adversarial sample}, partendo dal codice originale di un malware, per ingannare il Malware Detector. In modo più formale:
 
-Sia \(X = \{0, 1\}^m\) il \textit{feature space}, con \(m\) il numero delle \textit{feature}, dove \(x \in X\) indica la presenza dell'\textit{i-esima} \textit{feature} in una parte di codice. Il classificatore deduce \(f : X \to Y\) dal dominio \(X\) alle etichette \textit{benigno} o \textit{maligno} \(y \in \{0, 1\}\). Dato un malware \(x\) con la sua \textit{true lable} \(f(x) = 1\), l'attaccante punta a generare un \textit{adversarial sample} \(x' = x + \delta\) che risulti avere come etichetta \(f(x') = 0\).\\
+Sia \(X = \{0, 1\}^m\) il \textit{feature space}, con \(m\) il numero delle \textit{feature}, dove \(x \in X\) indica la presenza dell'\textit{i-esima} \textit{feature} in una parte di codice. Il classificatore deduce \(f : X \to Y\) dal dominio \(X\) alle etichette \textit{benigno} o \textit{maligno} \(y \in \{0, 1\}\). Dato un malware \(x\) con la sua \textit{true label} \(f(x) = 1\), l'attaccante punta a generare un \textit{adversarial sample} \(x' = x + \delta\) che risulti avere  \(f(x') = 0\).\\
 \\
 Utilizzano quindi una \textit{GAN} per cercare la perturbazione \(\delta\) ottimale da aggiungere al malware. L'architettura generale viene illustrata nella seguente figura:
 
 \includegraphics[scale=0.6]{model.png}
 
 Il \textit{Generator G} prende in input un \textit{noise vector} \(z\) e genera la perturbazione ottima \(G(z) = \delta\).
-Il \textit{Discriminator} usa come input un \textit{sample} \textit{Benigno} e il \textit{sample} del malware distorto per poter diversificare il sample benigno dall'\textit{adversarial malware}. Il \textit{Discriminator} migliora la perturbazione aumentando la \textit{loss} del \textit{Generator} se l'\textit{adversarial malware} è distinguibile dal \textit{sample benigno}.\\
-Questi due componenti sono \textit{feed-forward neural network} che vengono allenate in maniera alternata in modo da ottimizzare la \textit{min-max loss function}.\\
+Il \textit{Discriminator} usa come input un \textit{sample} \textit{benigno} e il \textit{sample} del malware distorto per poter diversificare il sample benigno dall'\textit{adversarial malware}. Il \textit{Discriminator} migliora la perturbazione aumentando la \textit{loss} del \textit{Generator} se l'\textit{adversarial malware} è distinguibile dal \textit{sample benigno}.\\
+Queste due componenti sono \textit{feed-forward neural network} che vengono allenate in maniera alternata in modo da ottimizzare la \textit{min-max loss function}.\\
 Utilizzano una loro \textit{loss function} formata da due elementi principali:
 
 \begin{itemize}
@@ -49,9 +49,9 @@ La funzione utilizzata da Shahpasand et al. è quindi:
 
 
 
-dove il primo termine indica una funzione che forza la GAN a generare un \textit{adversarial sample} simile ad un \textit{benign sample}; il secondo è un \textit{adversarial malware sample} con un alto \textit{misclassification rate}.\\
+dove il primo termine indica una funzione che forza la GAN a generare un \textit{adversarial sample} simile ad un \textit{benign sample} e il secondo è un \textit{adversarial malware sample} con un alto \textit{misclassification rate}.\\
 \\
-Utilizzano il dataset \textit{Drebin Android} che contiene \(129.013\) applicazioni, in formato \textit{APK}, di cui \(5.560\) sono malware. Ogni applicazione Android include il \textit{Manifest} ed il \textit{dexcode}, che sono le principali risorse da cui vengono estratte le \textit{feature}. Queste vengono catalogate in 8 \textit{feature set} che saranno poi utilizzate per la classificazione.\\
+Per la fase di training e testing, gli autori utilizzano il dataset \textit{Drebin Android} che contiene \(129.013\) applicazioni, in formato \textit{APK}, di cui \(5.560\) sono malware. Ogni applicazione Android include il \textit{Manifest} ed il \textit{dexcode}, che sono le principali risorse da cui vengono estratte le \textit{feature}. Queste vengono catalogate in 8 \textit{feature set} che saranno poi utilizzate per la classificazione.\\
 
 \begin{center}
     \begin{tabular}{ll}
@@ -67,7 +67,7 @@ Utilizzano il dataset \textit{Drebin Android} che contiene \(129.013\) applicazi
     \captionof{table}{Feature Set del dataset Drebin Android.}
 \end{center}
 \ \\
-Hanno allenato la \textit{GAN} contro le seguenti tipologie di classificatori (tutti allenati con le impostazioni di default proposte dalla libreria \say{scikit-learn} di Python: \(80\%\) del dataset come \textit{training set}):
+La \textit{GAN} è stata allenata contro le seguenti tipologie di classificatori (tutti allenati con le impostazioni di default proposte dalla libreria \say{scikit-learn} di Python: \(80\%\) del dataset come \textit{training set}):
 
 \begin{itemize}
     \item Support Vector Machine (SVM)
@@ -81,7 +81,7 @@ Il risultato è stato che quasi tutti i classificatori sono molto vulnerabili a 
 \subsubsection{Metodo di Xiao Chen et al.}
 Xiao Chen et al.\cite{hiv} propongono una metodologia di attacco \textit{black-box}, basata su \textit{CW} e \textit{JSMA}, contro due diverse tipologie di Malware Detector che rappresentano lo \textit{state-of-the-art} nel campo: \textit{MaMaDroid}, basato sulle \textit{Random Forest} e Drebin, basato su \textit{Support Vector Machine}.
 Il meccanismo su cui si basa il loro attacco consiste nel trovare la perturbazione ottima da applicare all'archivio \textit{APK} per portare i classificatori ad etichettare file maligni come benigni.
-Propongono anche un \textit{framework} che, in automatico senza alcun intervento umano, è in grado di decomprimere l'\textit{APK}, aggiungere le modifiche ai file \textit{.dex} e ricompattare il tutto formando un nuovo \textit{APK}. Dai test che hanno effettuato è possibile notare come i loro \textit{Adversarial Sample} riducono la precisione dal \(96\%\) al \(1\%\) per MaMaDroid\cite{hiv} e dal \(97\%\) al \(1\%\) per Drebin\cite{hiv}.\\
+Propongono anche un \textit{framework} che, in automatico senza alcun intervento umano, è in grado di decomprimere l'\textit{APK}, aggiungere le modifiche ai file \textit{.dex} e ricompattare il tutto formando un nuovo \textit{APK}. Dai risultati presentati nel paper è possibile notare come i loro \textit{Adversarial Sample} riducono la precisione dal \(96\%\) al \(1\%\) per MaMaDroid\cite{hiv} e dal \(97\%\) al \(1\%\) per Drebin\cite{hiv}.\\
 \\
 \textbf{Attacco a MaMaDroid}\\
 La creazione di \textit{Adversarial Sample} contro MaMaDroid avviene con l'aggiunta, il meno invasiva possibile, di chiamate API al codice \textit{smali}.
@@ -140,7 +140,7 @@ Per la fase di testing hanno utilizzato MaMaDroid con le impostazioni di default
 Dagli esperimenti che hanno condotto si evince che questo attacco ha un \textit{success rate} che va dal \(56\%\)\cite{hiv} fino al \(96\%\)\cite{hiv}.\\
 \ \\
 \textbf{Attacco a Drebin}\\
-Anche per attaccare Drebin sfruttano il modo in cui calcola il proprio \textit{feature vector}. Per ottenerlo, Drebin effettua una \say{scansione lineare} sui file \textit{smali} e \textit{AndroidManifest.xml} andando a cercare solo la presenza di stringhe particolari, come il nome di chiamate API, senza andare a controllare se effettivamente le chiamate vengono eseguite. La loro strategia è quindi di andare ad aggiungere il codice (perturbazione) ai file \textit{smali}, sotto forma di metodi o funzioni, senza però inserire l'istruzione per l'invocazione o esecuzione.
+Anche per attaccare Drebin sfruttano il modo in cui il sistema calcola il \textit{feature vector} con cui rappresentare il potenziale malware. Per ottenerlo, Drebin effettua una \say{scansione lineare} sui file \textit{smali} e \textit{AndroidManifest.xml} andando a cercare solo la presenza di stringhe particolari, come il nome di chiamate API, senza andare a controllare se effettivamente le chiamate vengono eseguite. La loro strategia è quindi di andare ad aggiungere il codice (perturbazione) ai file \textit{smali}, sotto forma di metodi o funzioni, senza però inserire l'istruzione per l'invocazione o esecuzione.
 
 \begin{lstlisting}[caption=Esempio di perturbazione che verrà aggiunta nei file smali.]
     .method private addSuspiciousApiFeature()V .locals 1

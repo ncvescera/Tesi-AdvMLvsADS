@@ -1,6 +1,6 @@
 %% viene da https://arxiv.org/pdf/1611.01236.pdf pgina 3
 \subsection{Attacchi}
-La maggior parte degli attacchi di Adversarial Machine Learning appartengono alla tipologia numero 2 \cite{adversarial} vista in precedenza, \textit{Evasion}, e vengono effettuate su immagini per cercare di violare sistemi di Image Classification e Object Detection. 
+La maggior parte degli attacchi di Adversarial Machine Learning appartengono alla tipologia numero 2 \cite{adversarial} vista in precedenza, \textit{Evasion}, e vengono applicati a immagini per cercare di violare sistemi di Image Classification e Object Detection. 
 Di seguito andremo ad analizzare i principali tipi di attacchi appartenenti a questa categoria:
 
 \subsubsection{Fast Gradient Sign Method}
@@ -25,7 +25,7 @@ Questa è una derivazione del metodo FGSM che consiste nell'applicarlo più volt
 X_0^{adv} = X,  \;\;\; X_{N+1}^{adv} = Clip_{X, \epsilon}\{X_N^{adv} + \alpha sign(\nabla_XJ(X_{N}^{adv}, y_{true}))\}
 \]
 
-\subsubsection{Iterative least-likley class Method}
+\subsubsection{Iterative least-likely class Method}
 Applicando più volte il metodo \say{step l.l} possiamo ottenere \say{adversarial examples} che vengono classificati in modo errato più del \(99\%\) delle volte:
 
 \[
